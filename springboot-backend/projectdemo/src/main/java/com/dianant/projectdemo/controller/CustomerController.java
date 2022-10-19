@@ -53,6 +53,12 @@ public class CustomerController {
         return customerService.deleteCustomer(id);
     }
 
+    // we don't want validation enabled here
+    @PostMapping(value = "/login")
+    public ResponseEntity<Boolean> loginCustomer(@RequestBody Customer customer){
+        return customerService.loginCustomer(customer);
+    }
+
     @GetMapping(value = "/search/name")
     public ResponseEntity<List<Customer>> searchCustomersByName(@RequestParam String name){
         return customerService.searchCustomersByName(name);

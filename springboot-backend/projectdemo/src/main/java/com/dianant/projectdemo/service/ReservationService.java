@@ -32,6 +32,14 @@ public class ReservationService {
         Customer customer = customerService.getCustomerById(reservation.getCustomerId()).getBody();
         Flight flight = flightService.getFlightById(reservation.getFlightId()).getBody();
 
+        if(flight == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Flight with flight id: " + reservation.getFlightId() + " found in the database!");
+        }
+
+        if(customer == null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Customer with customer id: " + reservation.getCustomerId() + " found in the database!");
+        }
+
         if(flight.getAvailableSeats() <= 0){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "All seats of this flight are booked. Please find a different flight!");
         }

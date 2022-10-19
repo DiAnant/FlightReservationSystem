@@ -32,23 +32,24 @@ public class Customer {
     @Column(unique = true)
     private String emailId;
 
+    @NotBlank(message = "Password cannot be blank!")
+    private String password;
+
     private LocalDate customerCreationDate;
 
     public Customer(){
 
     }
 
-    //  constructor does not allow id to initiated
-    public Customer(String firstName, String lastName, String phoneNumber, String emailId,
-        LocalDate customerCreationDate) {
+    public Customer(long id, String firstName, String lastName, String phoneNumber, String emailId, String password, LocalDate customerCreationDate) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.emailId = emailId;
+        this.password = password;
         this.customerCreationDate = customerCreationDate;
     }
-
-
 
     public long getId() {
         return id;
@@ -98,6 +99,12 @@ public class Customer {
         this.customerCreationDate = customerCreationDate;
     }
 
-    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }

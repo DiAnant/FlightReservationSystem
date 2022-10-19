@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Reservation {
@@ -14,13 +15,13 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    // NotBlank, min max (1-100)
+    // not user provided, will be setup automatically at the time of reservation creation
     private Integer seatNumber;
     
-    // NotBlank, make sure passenger exists with paassengerId
+    @NotBlank(message = "Customer-Id cannot be blank")
     private Long customerId;
 
-    // NotBlank, make sure flight exists by flightId
+    @NotBlank(message = "Flight-Id cannot be blank")
     private Long flightId;
 
     // not user provided, will be setup automatically in constructor

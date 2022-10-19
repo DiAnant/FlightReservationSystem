@@ -110,4 +110,17 @@ public class CustomerService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND ,"No customer with Id: " + id + " found in database. Please enter a valid customer id.");
         }
     }
+
+    public ResponseEntity<Boolean> loginCustomer(Customer customer) {
+        String email = customer.getEmailId();
+        String password = customer.getPassword();
+        Boolean allowLogin = false;
+
+        Customer customerInDB = customerRepository.findByEmailId(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "No customer record with email id : " + email + " found in the database. Try again with a correct email address!"));
+
+        if(customerInDB.getPassword().equals(password))
+            allowLogin = true;
+            
+        return ResponseEntity.ok(allowLogin);
+    }
 }
